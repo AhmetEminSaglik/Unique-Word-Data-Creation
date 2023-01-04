@@ -1,9 +1,13 @@
 package org.aes;
 
 import org.aes.model.FileLocation;
+import org.aes.model.Word;
 import org.ahmeteminsaglik.fileoperation.entities.concretes.FileFundamental;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class Main {
@@ -39,6 +43,14 @@ public class Main {
 
         WordDataOperation wordDataOperation = new WordDataOperation();
         wordDataOperation.createUniqeWords(fileFundList);
+
+        List<String> uniqeList = wordDataOperation.getUniqeData();
+//        List<Word> wordList = new ArrayList<>();
+//        uniqeList.stream().allMatch(e->wordList.add(new Word(e)));
+//        DBConnection dbConnection = new DBConnection(Word.class);
+//        dbConnection.save(wordList);
+//        dbConnection.save(new Word("ABC"));
+
     }
 
 }

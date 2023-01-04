@@ -1,14 +1,10 @@
 package org.aes.model;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "words")
-@AllArgsConstructor
-@NoArgsConstructor
 public class Word {
     @Id
     @Column
@@ -17,6 +13,13 @@ public class Word {
 
     @Column(name = "word")
     private String word;
+
+    public Word(String word) {
+        this.word = word;
+    }
+
+    public Word() {
+    }
 
     @Override
     public String toString() {

@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Set;
 
 public class WordDataOperation {
-    HashSet totalWordSet = new HashSet();
-    FileOperation fileOperation = new FileOperation();
+    private HashSet totalWordSet = new HashSet();
+    private FileOperation fileOperation = new FileOperation();
 
     public void createUniqeWords(List<FileFundamental> list) {
         int fileNumber = 0;
@@ -29,26 +29,35 @@ public class WordDataOperation {
                 List wordList = removeMeaninglessWordsInWordArray(wordArr);
 //                System.out.println(wordList);
                 bookWordSet.addAll(wordList);
-            }
 
+
+            }
+            totalWordSet.addAll(bookWordSet);
 //            System.out.println(hashSet);
 
-            System.out.println("hashSet : " + bookWordSet.size());
+            System.out.println("hashSet : " + ReadableStringFormat.getReadableValueIntToString(bookWordSet.size()));
+            System.out.println("bookWordSet : " + ReadableStringFormat.getReadableValueIntToString(totalWordSet.size()));
             System.out.println("-------------------------------");
 //            List<String> uniqeWordList = new ArrayList<>(hashSet);
-            if (bookWordSet.size() == 0) {
-                String text = list.get(fileNumber).getCompletePath();
-                fileOperation.appendFile(text);
-            }
+
 //            System.exit(0);
             fileNumber++;
 
-//            if (fileNumber >= 10) {
+//            if (fileNumber >= 1000) {
 //                System.exit(0);
 //            }
             fileOperation.clearList();
         }
 
+    }
+
+    public List<String> getUniqeData() {
+        List<String> uniqeWordList = new ArrayList<String>(totalWordSet);
+        for (String tmp : uniqeWordList) {
+            fileOperation.appendFile(tmp);
+        }
+        System.out.println("total printed word size : " + uniqeWordList.size());
+        return new ArrayList<String>(totalWordSet);
     }
 
     private String clearLineFromPunctuation(String text) {

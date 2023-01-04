@@ -23,8 +23,8 @@ public class FileOperation {
         readFileService.clearList();
     }
     public  void appendFile(String text){
-        String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\brokenFile\\";
-        FileFundamental fileFundamental = new FileFundamental().setPath(path).setFileName("broken-File-Names").setFileExtension(".txt");
+        String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqewords\\";
+        FileFundamental fileFundamental = new FileFundamental().setPath(path).setFileName("uniqe-words").setFileExtension(".txt");
         writeFileService.append(fileFundamental,text);
 
     }
