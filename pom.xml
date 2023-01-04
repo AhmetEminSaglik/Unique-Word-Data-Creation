@@ -12,6 +12,8 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <model.proje>1.0</model.proje>
+        <hibernate.version>5.6.0.Final</hibernate.version>
+        <postgresql.connector.version>42.5.1</postgresql.connector.version>
     </properties>
 
     <dependencies>
@@ -19,6 +21,23 @@
             <groupId>org.ahmeteminsaglik.fileoperation</groupId>
             <artifactId>FileOperation</artifactId>
             <version>${model.proje}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
