@@ -15,6 +15,11 @@ public class Main {
 
     public static void main(String[] args) {
         /*
+        TODO branch : -clear-created-unique-word
+        *  Created +7_038_822 must be clear from the characters that do not belong to the English
+        * */
+
+        /*
          * Read lines from txt
          * split words by space character
          * trim words
@@ -42,9 +47,9 @@ public class Main {
         List<FileFundamental> fileFundList = fileLocation.getBookFileFundementalList();
 
         WordDataOperation wordDataOperation = new WordDataOperation();
-        wordDataOperation.createUniqeWords(fileFundList);
+        wordDataOperation.createUniqueWords(fileFundList);
 
-        List<String> uniqeList = wordDataOperation.getUniqeData();
+        List<String> uniqueList = wordDataOperation.getUniqueData();
 //        List<Word> wordList = new ArrayList<>();
 //        uniqeList.stream().allMatch(e->wordList.add(new Word(e)));
 //        DBConnection dbConnection = new DBConnection(Word.class);

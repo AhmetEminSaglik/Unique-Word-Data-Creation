@@ -15,7 +15,7 @@ public class WordDataOperation {
     private HashSet totalWordSet = new HashSet();
     private FileOperation fileOperation = new FileOperation();
 
-    public void createUniqeWords(List<FileFundamental> list) {
+    public void createUniqueWords(List<FileFundamental> list) {
         int fileNumber = 0;
         for (FileFundamental tmpFilefund : list) {
             System.out.println("Process File :  " + ReadableStringFormat.getReadableValueIntToString((fileNumber + 1)) + " | " + ReadableStringFormat.getReadableValueIntToString(list.size()) + " | " + " file : " + list.get(fileNumber).getCompletePath());
@@ -51,12 +51,12 @@ public class WordDataOperation {
 
     }
 
-    public List<String> getUniqeData() {
-        List<String> uniqeWordList = new ArrayList<String>(totalWordSet);
-        for (String tmp : uniqeWordList) {
+    public List<String> getUniqueData() {
+        List<String> uniqueWordList = new ArrayList<String>(totalWordSet);
+        for (String tmp : uniqueWordList) {
             fileOperation.appendFile(tmp);
         }
-        System.out.println("total printed word size : " + uniqeWordList.size());
+        System.out.println("total printed word size : " + uniqueWordList.size());
         return new ArrayList<String>(totalWordSet);
     }
 
