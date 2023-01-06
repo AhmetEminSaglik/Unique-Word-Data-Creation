@@ -1,7 +1,8 @@
 package org.aes.model;
 
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import javax.persistence.*;
+//import javax.persistence.*;
 
 @Entity
 @Table(name = "words")

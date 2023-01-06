@@ -37,6 +37,15 @@ public class Main {
         * Sonra db'ye kaydeidlmeli
         *
         * */
+
+        DBConnection dbCon= new DBConnection(Word.class);
+
+        for(int i=0;i<10;i++){
+        Word word= new Word("test "+i);
+        dbCon.save(word);
+        }
+
+        System.exit(0);
         FileLocation fileLocation = new FileLocation();
         List<FileFundamental> fileFundList = fileLocation.getBookFileFundementalList();
         WordDataOperation wordDataOperation = new WordDataOperation();
@@ -59,5 +68,7 @@ public class Main {
         String msg = "saveAll : " + ReadableStringFormat.getReadableValueIntToString(wordList.size()) +" :: " + timeCalculation.getStringFormatElapsedTime();
         fileOperation.appendDBProcessTime(msg);
     }
+
+//    public  static  void
 
 }
