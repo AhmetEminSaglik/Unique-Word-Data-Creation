@@ -14,8 +14,10 @@ public class FileLocation {
     public List<FileFundamental> getBookFileFundementalList() {
         List<FileFundamental> filePaths = new ArrayList<>();
 //        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\books\\"; //directory For String Data
-        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqe-words\\"; //directory For String Data
+//        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqe-words\\"; //directory For String Data
 //        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\next-line-demo\\"; //directory For String Data
+//        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqe-words-clean-7_037_373\\"; //directory For String Data
+        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\unique-english-words\\"; //directory For String Data
 
         try {
             DirectoryStream<Path> directoryStream = Files.newDirectoryStream(FileSystems.getDefault().getPath(directory));
