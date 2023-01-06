@@ -25,8 +25,8 @@ public class WordDataOperation {
             for (String tmpStringLine : readDataList) {
                 String stringLine = clearLineFromPunctuation(tmpStringLine);
                 String[] wordArr = splitWordFromText(stringLine);
-
                 List wordList = removeMeaninglessWordsInWordArray(wordArr);
+//                wordList = removeWordsNotBelongsToEnglish(wordList);
 //                System.out.println(wordList);
                 bookWordSet.addAll(wordList);
 
@@ -52,12 +52,13 @@ public class WordDataOperation {
     }
 
     public List<String> getUniqueData() {
-        List<String> uniqueWordList = new ArrayList<String>(totalWordSet);
-        for (String tmp : uniqueWordList) {
-            fileOperation.appendFile(tmp);
-        }
-        System.out.println("total printed word size : " + uniqueWordList.size());
         return new ArrayList<String>(totalWordSet);
+    }
+
+    public void printUniqeDataToTxtFile() {
+        List<String> uniqueWordList = new ArrayList<String>(totalWordSet);
+        fileOperation.writeFile(uniqueWordList);
+        System.out.println("total printed word size : " + uniqueWordList.size());
     }
 
     private String clearLineFromPunctuation(String text) {
@@ -74,5 +75,8 @@ public class WordDataOperation {
         return SpecialCharacter.removeWordHasMeaninglessPunctuation(wordArr);
     }
 
+    private List<String> removeWordsNotBelongsToEnglish(List<String> wordList) {
+        return SpecialCharacter.removeWordsNotBelongsToEnglish(wordList);
+    }
 
 }
