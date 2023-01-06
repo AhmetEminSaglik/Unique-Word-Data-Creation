@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FileOperation {
     private ReadFileService readFileService = new ReadFileManagement();
-    private WriteFileService writeFileService= new WriteFileManagement();
+    private WriteFileService writeFileService = new WriteFileManagement();
     private FileOperationFacade fileOperationFacade = new FileOperationFacade(null, readFileService);
 
     public List<String> read(FileFundamental fileFund) {
@@ -25,12 +25,20 @@ public class FileOperation {
     public void clearList() {
         readFileService.clearList();
     }
-    public  void writeFile(List<String> list){
-        String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqe-words -2\\";
+
+    public void writeFile(List<String> list) {
+//        String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqe-words -2\\";
+        String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\unique-english-words\\";
         FileFundamental fileFundamental = new FileFundamental().setPath(path).setFileName("uniqe-words").setFileExtension(".txt");
-        writeFileService.write(fileFundamental,list);
+        writeFileService.write(fileFundamental, list);
         System.out.println("total printed word size : " + ReadableStringFormat.getReadableValueIntToString(list.size()));
 
+    }
+
+    public void appendDBProcessTime(String msg) {
+        String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\db-process\\";
+        FileFundamental fileFundamental = new FileFundamental().setPath(path).setFileName("db-process-time").setFileExtension(".txt");
+        writeFileService.append(fileFundamental, msg);
 
     }
 

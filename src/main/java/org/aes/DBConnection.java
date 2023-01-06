@@ -1,5 +1,6 @@
 package org.aes;
 
+import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -21,7 +22,7 @@ public class DBConnection {
                     .addAnnotatedClass(clazz)
                     .buildSessionFactory();
         } catch (Exception e) {
-            System.out.println(">>>>>>>>>>> >>>>>>>>>>>error occured : " + e.getMessage());
+            System.err.println("error occured : " + e.getMessage());
         }
         return factory.getCurrentSession();
 
@@ -31,7 +32,7 @@ public class DBConnection {
         try {
             Session session = createSession();
             session.beginTransaction();
-            session.save(o);
+            session.saveOrUpdate(o);
             session.getTransaction().commit();
 
         } finally {
@@ -39,16 +40,28 @@ public class DBConnection {
         }
     }
 
-    public void save(List<?> objectList) {
+
+    public void saveAll(List<?> objectList) {
+        int i = 0;
         try {
             Session session = createSession();
             session.beginTransaction();
-            for (Object tmp : objectList) {
-                session.save(tmp);
+            session.setJdbcBatchSize(50);
+            for (i = 0; i < objectList.size(); i++) {
+                session.save(objectList.get(i));
+                if (i % session.getJdbcBatchSize() == 0) {
+                    session.flush();
+                    session.clear();
+                    }
             }
             session.getTransaction().commit();
+
+        } catch (Exception e) {
+            System.out.println(i + "-) " + objectList.get(i));
+            System.out.println("Error occured : " + e.getMessage());
         } finally {
             factory.close();
         }
     }
+
 }

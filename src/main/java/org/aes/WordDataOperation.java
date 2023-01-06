@@ -1,11 +1,9 @@
 package org.aes;
 
-import org.aes.model.FileLocation;
 import org.aes.utillity.ReadableStringFormat;
 import org.aes.utillity.SpecialCharacter;
 import org.ahmeteminsaglik.fileoperation.entities.concretes.FileFundamental;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,14 +17,14 @@ public class WordDataOperation {
         int fileNumber = 0;
         for (FileFundamental tmpFilefund : list) {
             System.out.println("Process File :  " + ReadableStringFormat.getReadableValueIntToString((fileNumber + 1)) + " | " + ReadableStringFormat.getReadableValueIntToString(list.size()) + " | " + " file : " + list.get(fileNumber).getCompletePath());
-            List<String> readDataList = fileOperation.read(tmpFilefund);
+            List<String> readDataList = readFile(tmpFilefund);
             System.out.println("Total Line in file : " + ReadableStringFormat.getReadableValueIntToString(readDataList.size()));
             Set bookWordSet = new HashSet();
             for (String tmpStringLine : readDataList) {
                 String stringLine = clearLineFromPunctuation(tmpStringLine);
                 String[] wordArr = splitWordFromText(stringLine);
                 List wordList = removeMeaninglessWordsInWordArray(wordArr);
-//                wordList = removeWordsNotBelongsToEnglish(wordList);
+                wordList = removeWordsNotBelongsToEnglish(wordList);
 //                System.out.println(wordList);
                 bookWordSet.addAll(wordList);
 
@@ -51,6 +49,14 @@ public class WordDataOperation {
 
     }
 
+    private List<String> readFile(FileFundamental fileFundamental) {
+        return fileOperation.read(fileFundamental);
+    }
+
+    public List<String> getWordListFromFile(FileFundamental fileFundamental) {
+        return readFile(fileFundamental);
+    }
+
     public List<String> getUniqueData() {
         return new ArrayList<String>(totalWordSet);
     }
@@ -58,7 +64,6 @@ public class WordDataOperation {
     public void printUniqeDataToTxtFile() {
         List<String> uniqueWordList = new ArrayList<String>(totalWordSet);
         fileOperation.writeFile(uniqueWordList);
-        System.out.println("total printed word size : " + uniqueWordList.size());
     }
 
     private String clearLineFromPunctuation(String text) {

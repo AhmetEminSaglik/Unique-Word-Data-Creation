@@ -2,16 +2,17 @@ package org.aes;
 
 import org.aes.model.FileLocation;
 import org.aes.model.Word;
+import org.aes.utillity.ReadableStringFormat;
+import org.aes.utillity.TimeCalculation;
 import org.ahmeteminsaglik.fileoperation.entities.concretes.FileFundamental;
 
+import javax.swing.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.logging.Logger;
 
 public class Main {
-
+    static TimeCalculation timeCalculation = new TimeCalculation();
+    static FileOperation fileOperation = new FileOperation();
 
     public static void main(String[] args) {
         /*
@@ -36,44 +37,27 @@ public class Main {
         * Sonra db'ye kaydeidlmeli
         *
         * */
-//        FileOperation fileOperation = new FileOperation();
-//        List<FileFundamental> fileFundList = fileOperation.getBookFileFundementalList();
-//        WordDataOperation wordDataOperation= new WordDataOperation();
-//        wordDataOperation.createUniqeWords(fileFundList);
-
-        //40_881, before clear broken books
-        //38_709,  after deleted broken books.
-        /*System.out.println((int)'«');
-        System.out.println((int)'‘');
-        System.out.println((int)'”');
-        System.out.println((int)'»');
-        System.out.println((int)'«');
-        System.out.println((int)'…');
-        System.exit(0);*/
-//        String text="別笑話我．你這個姐姐他极孝順我，不象我那大太太一味怕老爺，婆婆跟前不過";
-//        for(char tmp : text.toCharArray()){
-//            System.out.println((int)tmp);
-//        }
-//        System.out.println((int)'‘');
-//        System.out.println((int)'’');
-//        System.exit(0);
         FileLocation fileLocation = new FileLocation();
         List<FileFundamental> fileFundList = fileLocation.getBookFileFundementalList();
         WordDataOperation wordDataOperation = new WordDataOperation();
-        wordDataOperation.createUniqueWords(fileFundList);
-//        List<String> uniqueList = wordDataOperation.getUniqueData();
+//        wordDataOperation.createUniqueWords(fileFundList);
 //        wordDataOperation.printUniqeDataToTxtFile();
-
-
-//        uniqueList.forEach(e->{
-//            System.out.println("tmp : "+e);
-//        });
-//        List<Word> wordList = new ArrayList<>();
-//        uniqeList.stream().allMatch(e->wordList.add(new Word(e)));
+        List<String> dataListInFile = wordDataOperation.getWordListFromFile(fileFundList.get(0));
+        System.out.println(ReadableStringFormat.getReadableValueIntToString(dataListInFile.size()));
+        List<Word> wordList = new ArrayList<>();
 //        DBConnection dbConnection = new DBConnection(Word.class);
-//        dbConnection.save(wordList);
-//        dbConnection.save(new Word("ABC"));
+        dataListInFile.forEach(e -> wordList.add(new Word(e)));
+        saveAll(wordList);
 
+    }
+
+    public static void saveAll(List<Word> wordList) {
+        timeCalculation.start();
+        DBConnection dbConnection = new DBConnection(Word.class);
+        dbConnection.saveAll(wordList);
+        timeCalculation.stop();
+        String msg = "saveAll : " + ReadableStringFormat.getReadableValueIntToString(wordList.size()) +" :: " + timeCalculation.getStringFormatElapsedTime();
+        fileOperation.appendDBProcessTime(msg);
     }
 
 }
