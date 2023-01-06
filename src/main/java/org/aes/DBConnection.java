@@ -22,7 +22,7 @@ public class DBConnection {
                     .addAnnotatedClass(clazz)
                     .buildSessionFactory();
         } catch (Exception e) {
-            System.out.println(">>>>>>>>>>> >>>>>>>>>>>error occured : " + e.getMessage());
+            System.err.println("error occured : " + e.getMessage());
         }
         return factory.getCurrentSession();
 
@@ -40,57 +40,20 @@ public class DBConnection {
         }
     }
 
-    public void savePersist(List<?> objectList, int batchSize) {
+
+    public void saveAll(List<?> objectList) {
         int i = 0;
         try {
             Session session = createSession();
             session.beginTransaction();
-//            factory.getCurrentSession().setJdbcBatchSize(10);
-            session.setJdbcBatchSize(batchSize);
+            session.setJdbcBatchSize(50);
             for (i = 0; i < objectList.size(); i++) {
-//                System.out.println(i + "-) " + objectList.get(i));
-//                session.save(objectList.get(i));
-                session.persist(objectList.get(i));
-                if (i % session.getJdbcBatchSize() == 0) {
-//                    System.out.println("index : " + i);
-
-                    session.flush();
-                    session.clear();
-
-                }
-            }
-            /*for (Object tmp : objectList) {
-                session.save(tmp);
-            }*/
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println(i + "-) " + objectList.get(i));
-            System.out.println("Error occured : " + e.getMessage());
-        } finally {
-            factory.close();
-        }
-    }
-
-    public void saveNormal(List<?> objectList, int batchSize) {
-        int i = 0;
-        try {
-            Session session = createSession();
-            session.beginTransaction();
-//            factory.getCurrentSession().setJdbcBatchSize(10);
-            session.setJdbcBatchSize(batchSize);
-            for (i = 0; i < objectList.size(); i++) {
-//                System.out.println(i + "-) " + objectList.get(i));
                 session.save(objectList.get(i));
-//                session.persist(objectList.get(i));
                 if (i % session.getJdbcBatchSize() == 0) {
-//                    System.out.println("index : " + i);
                     session.flush();
                     session.clear();
                     }
             }
-            /*for (Object tmp : objectList) {
-                session.save(tmp);
-            }*/
             session.getTransaction().commit();
 
         } catch (Exception e) {
@@ -101,34 +64,4 @@ public class DBConnection {
         }
     }
 
-    public void saveOrUpdate(List<?> objectList, int batchSize) {
-        int i = 0;
-        try {
-            Session session = createSession();
-            session.beginTransaction();
-//            factory.getCurrentSession().setJdbcBatchSize(10);
-            session.setJdbcBatchSize(batchSize);
-            for (i = 0; i < objectList.size(); i++) {
-//                System.out.println(i + "-) " + objectList.get(i));
-                session.saveOrUpdate(objectList.get(i));
-//                session.persist(objectList.get(i));
-                if (i % session.getJdbcBatchSize() == 0) {
-//                    System.out.println("index : " + i);
-
-                    session.flush();
-                    session.clear();
-
-                }
-            }
-            /*for (Object tmp : objectList) {
-                session.save(tmp);
-            }*/
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println(i + "-) " + objectList.get(i));
-            System.out.println("Error occured : " + e.getMessage());
-        } finally {
-            factory.close();
-        }
-    }
 }
