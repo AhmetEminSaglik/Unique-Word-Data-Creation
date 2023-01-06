@@ -1,5 +1,6 @@
 package org.aes;
 
+import org.aes.utillity.ReadableStringFormat;
 import org.ahmeteminsaglik.fileoperation.business.abstracts.ReadFileService;
 import org.ahmeteminsaglik.fileoperation.business.abstracts.WriteFileService;
 import org.ahmeteminsaglik.fileoperation.business.concretes.FileOperationFacade;
@@ -7,6 +8,8 @@ import org.ahmeteminsaglik.fileoperation.dataaccess.concretes.ReadFileManagement
 import org.ahmeteminsaglik.fileoperation.dataaccess.concretes.WriteFileManagement;
 import org.ahmeteminsaglik.fileoperation.entities.concretes.FileFundamental;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class FileOperation {
@@ -22,10 +25,12 @@ public class FileOperation {
     public void clearList() {
         readFileService.clearList();
     }
-    public  void appendFile(String text){
-        String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqewords\\";
+    public  void writeFile(List<String> list){
+        String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqe-words -2\\";
         FileFundamental fileFundamental = new FileFundamental().setPath(path).setFileName("uniqe-words").setFileExtension(".txt");
-        writeFileService.append(fileFundamental,text);
+        writeFileService.write(fileFundamental,list);
+        System.out.println("total printed word size : " + ReadableStringFormat.getReadableValueIntToString(list.size()));
+
 
     }
 

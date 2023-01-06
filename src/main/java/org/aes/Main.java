@@ -15,6 +15,11 @@ public class Main {
 
     public static void main(String[] args) {
         /*
+        TODO branch : -clear-created-unique-word
+        *  Created +7_038_822 must be clear from the characters that do not belong to the English
+        * */
+
+        /*
          * Read lines from txt
          * split words by space character
          * trim words
@@ -38,13 +43,31 @@ public class Main {
 
         //40_881, before clear broken books
         //38_709,  after deleted broken books.
+        /*System.out.println((int)'«');
+        System.out.println((int)'‘');
+        System.out.println((int)'”');
+        System.out.println((int)'»');
+        System.out.println((int)'«');
+        System.out.println((int)'…');
+        System.exit(0);*/
+//        String text="別笑話我．你這個姐姐他极孝順我，不象我那大太太一味怕老爺，婆婆跟前不過";
+//        for(char tmp : text.toCharArray()){
+//            System.out.println((int)tmp);
+//        }
+//        System.out.println((int)'‘');
+//        System.out.println((int)'’');
+//        System.exit(0);
         FileLocation fileLocation = new FileLocation();
         List<FileFundamental> fileFundList = fileLocation.getBookFileFundementalList();
-
         WordDataOperation wordDataOperation = new WordDataOperation();
-        wordDataOperation.createUniqeWords(fileFundList);
+        wordDataOperation.createUniqueWords(fileFundList);
+//        List<String> uniqueList = wordDataOperation.getUniqueData();
+//        wordDataOperation.printUniqeDataToTxtFile();
 
-        List<String> uniqeList = wordDataOperation.getUniqeData();
+
+//        uniqueList.forEach(e->{
+//            System.out.println("tmp : "+e);
+//        });
 //        List<Word> wordList = new ArrayList<>();
 //        uniqeList.stream().allMatch(e->wordList.add(new Word(e)));
 //        DBConnection dbConnection = new DBConnection(Word.class);

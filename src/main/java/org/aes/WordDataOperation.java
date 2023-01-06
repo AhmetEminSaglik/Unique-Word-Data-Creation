@@ -15,7 +15,7 @@ public class WordDataOperation {
     private HashSet totalWordSet = new HashSet();
     private FileOperation fileOperation = new FileOperation();
 
-    public void createUniqeWords(List<FileFundamental> list) {
+    public void createUniqueWords(List<FileFundamental> list) {
         int fileNumber = 0;
         for (FileFundamental tmpFilefund : list) {
             System.out.println("Process File :  " + ReadableStringFormat.getReadableValueIntToString((fileNumber + 1)) + " | " + ReadableStringFormat.getReadableValueIntToString(list.size()) + " | " + " file : " + list.get(fileNumber).getCompletePath());
@@ -25,8 +25,8 @@ public class WordDataOperation {
             for (String tmpStringLine : readDataList) {
                 String stringLine = clearLineFromPunctuation(tmpStringLine);
                 String[] wordArr = splitWordFromText(stringLine);
-
                 List wordList = removeMeaninglessWordsInWordArray(wordArr);
+//                wordList = removeWordsNotBelongsToEnglish(wordList);
 //                System.out.println(wordList);
                 bookWordSet.addAll(wordList);
 
@@ -51,13 +51,14 @@ public class WordDataOperation {
 
     }
 
-    public List<String> getUniqeData() {
-        List<String> uniqeWordList = new ArrayList<String>(totalWordSet);
-        for (String tmp : uniqeWordList) {
-            fileOperation.appendFile(tmp);
-        }
-        System.out.println("total printed word size : " + uniqeWordList.size());
+    public List<String> getUniqueData() {
         return new ArrayList<String>(totalWordSet);
+    }
+
+    public void printUniqeDataToTxtFile() {
+        List<String> uniqueWordList = new ArrayList<String>(totalWordSet);
+        fileOperation.writeFile(uniqueWordList);
+        System.out.println("total printed word size : " + uniqueWordList.size());
     }
 
     private String clearLineFromPunctuation(String text) {
@@ -74,5 +75,8 @@ public class WordDataOperation {
         return SpecialCharacter.removeWordHasMeaninglessPunctuation(wordArr);
     }
 
+    private List<String> removeWordsNotBelongsToEnglish(List<String> wordList) {
+        return SpecialCharacter.removeWordsNotBelongsToEnglish(wordList);
+    }
 
 }
