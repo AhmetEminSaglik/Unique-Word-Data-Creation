@@ -5,7 +5,7 @@ Was working on txt extension file. Is used [File Operation library](https://gith
 
 
 ## Insertion to Database
-MYSQL connection and PostgreSQL connection are set.
+MYSQL connection and PostgreSQL connection were set.
 Tested insertion one by one and multiple values.
 Added 3_000_000 words in both databases.
 
