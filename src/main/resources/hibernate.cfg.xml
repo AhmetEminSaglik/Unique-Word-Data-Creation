@@ -2,7 +2,6 @@
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
-
 <!-- Here is MYSQL Connection-->
 <!--
 <hibernate-configuration>
@@ -25,9 +24,7 @@
         <property name="hibernate.order_inserts">true</property>
     </session-factory>
 </hibernate-configuration>
-
 -->
-
         <!-- Here is PostreSQL Connection-->
 <hibernate-configuration>
     <session-factory>

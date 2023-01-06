@@ -39,7 +39,6 @@ public class DBConnection {
         }
     }
 
-
     public void saveAll(List<?> objectList) {
         int i = 0;
         try {
@@ -61,13 +60,5 @@ public class DBConnection {
         } finally {
             factory.close();
         }
-    }
-
-    public void testCriteria() {
-        Session session=createSession();
-//        session.create
-//        session
-//        session.
-//        List<?> dataList =session.createStoredProcedureQuery()
     }
 }
