@@ -2,8 +2,8 @@ package org.aes;
 
 import org.aes.model.FileLocation;
 import org.aes.model.Word;
-import org.aes.utillity.ReadableStringFormat;
 import org.aes.utillity.TimeCalculation;
+import org.ahmeteminsaglik.ReadableFormat;
 import org.ahmeteminsaglik.fileoperation.entities.concretes.FileFundamental;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class Main {
 //        wordDataOperation.createUniqueWords(fileFundList);
 //        wordDataOperation.printUniqeDataToTxtFile();
         List<String> dataListInFile = wordDataOperation.getWordListFromFile(fileFundList.get(0));
-        System.out.println(ReadableStringFormat.getReadableValueIntToString(dataListInFile.size()));
+        System.out.println(ReadableFormat.getStringValue(dataListInFile.size()));
         List<Word> wordList = new ArrayList<>();
 //        DBConnection dbConnection = new DBConnection(Word.class);
         dataListInFile.forEach(e -> wordList.add(new Word(e)));
@@ -42,7 +42,7 @@ public class Main {
         DBConnection dbConnection = new DBConnection(Word.class);
         dbConnection.saveAll(wordList);
         timeCalculation.stop();
-        String msg = "saveAll : " + ReadableStringFormat.getReadableValueIntToString(wordList.size()) + " :: " + timeCalculation.getStringFormatElapsedTime();
+        String msg = "saveAll : " + ReadableFormat.getStringValue(wordList.size()) + " :: " + timeCalculation.getStringFormatElapsedTime();
         fileOperation.appendDBProcessTime(msg);
     }
 

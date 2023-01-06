@@ -1,7 +1,7 @@
 package org.aes;
 
-import org.aes.utillity.ReadableStringFormat;
 import org.aes.utillity.SpecialCharacter;
+import org.ahmeteminsaglik.ReadableFormat;
 import org.ahmeteminsaglik.fileoperation.entities.concretes.FileFundamental;
 
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ public class WordDataOperation {
     public void createUniqueWords(List<FileFundamental> list) {
         int fileNumber = 0;
         for (FileFundamental tmpFilefund : list) {
-            System.out.println("Process File :  " + ReadableStringFormat.getReadableValueIntToString((fileNumber + 1)) + " | " + ReadableStringFormat.getReadableValueIntToString(list.size()) + " | " + " file : " + list.get(fileNumber).getCompletePath());
+            System.out.println("Process File :  " + ReadableFormat.getStringValue((fileNumber + 1)) + " | " +ReadableFormat.getStringValue(list.size()) + " | " + " file : " + list.get(fileNumber).getCompletePath());
             List<String> readDataList = readFile(tmpFilefund);
-            System.out.println("Total Line in file : " + ReadableStringFormat.getReadableValueIntToString(readDataList.size()));
+            System.out.println("Total Line in file : " + ReadableFormat.getStringValue(readDataList.size()));
             Set bookWordSet = new HashSet();
             for (String tmpStringLine : readDataList) {
                 String stringLine = clearLineFromPunctuation(tmpStringLine);
@@ -33,8 +33,8 @@ public class WordDataOperation {
             totalWordSet.addAll(bookWordSet);
 //            System.out.println(hashSet);
 
-            System.out.println("hashSet : " + ReadableStringFormat.getReadableValueIntToString(bookWordSet.size()));
-            System.out.println("bookWordSet : " + ReadableStringFormat.getReadableValueIntToString(totalWordSet.size()));
+            System.out.println("hashSet : " + ReadableFormat.getStringValue(bookWordSet.size()));
+            System.out.println("bookWordSet : " + ReadableFormat.getStringValue(totalWordSet.size()));
             System.out.println("-------------------------------");
 //            List<String> uniqeWordList = new ArrayList<>(hashSet);
 
