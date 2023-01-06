@@ -1,6 +1,5 @@
 package org.aes;
 
-import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -32,7 +31,7 @@ public class DBConnection {
         try {
             Session session = createSession();
             session.beginTransaction();
-            session.saveOrUpdate(o);
+            session.persist(o);
             session.getTransaction().commit();
 
         } finally {
@@ -48,11 +47,11 @@ public class DBConnection {
             session.beginTransaction();
             session.setJdbcBatchSize(50);
             for (i = 0; i < objectList.size(); i++) {
-                session.save(objectList.get(i));
+                session.persist(objectList.get(i));
                 if (i % session.getJdbcBatchSize() == 0) {
                     session.flush();
                     session.clear();
-                    }
+                }
             }
             session.getTransaction().commit();
 
@@ -64,4 +63,11 @@ public class DBConnection {
         }
     }
 
+    public void testCriteria() {
+        Session session=createSession();
+//        session.create
+//        session
+//        session.
+//        List<?> dataList =session.createStoredProcedureQuery()
+    }
 }
