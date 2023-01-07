@@ -33,6 +33,16 @@ public class FileOperation {
 
     }
 
+    public void writeFile(List<String> list, String fileName) {
+//        String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqe-words -2\\";
+        String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\word-data\\";
+        FileFundamental fileFundamental = new FileFundamental().setPath(path).setFileName(fileName).setFileExtension(".txt");
+//        writeFileService.write(fileFundamental, list);
+        writeFileService.write(fileFundamental,list);
+        System.out.println("total printed word size : " + ReadableFormat.getStringValue(list.size()));
+
+    }
+
     public void appendDBProcessTime(String msg) {
         String path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\db-process\\";
         FileFundamental fileFundamental = new FileFundamental().setPath(path).setFileName("db-process-time").setFileExtension(".txt");

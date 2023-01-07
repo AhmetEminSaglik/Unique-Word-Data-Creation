@@ -1,8 +1,11 @@
 package org.aes;
 
+import org.aes.model.Word;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -60,5 +63,25 @@ public class DBConnection {
         } finally {
             factory.close();
         }
+    }
+
+    public Object getById(int id) {
+        Object object = null;
+        try {
+            Session session = createSession();
+            Transaction transaction = session.beginTransaction();
+            String hql = "FROM Word W WHERE W.id = :id";
+            Query query = session.createQuery(hql, clazz);
+            query.setParameter("id", id);
+//        query.setParameter("propertyValue", "some value");
+            object = query.uniqueResult();
+            transaction.commit();
+
+        } catch (Exception e) {
+            System.out.println("error occurred : " + e.getMessage());
+        } finally {
+            factory.close();
+        }
+        return object;
     }
 }

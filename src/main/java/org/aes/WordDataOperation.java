@@ -16,7 +16,7 @@ public class WordDataOperation {
     public void createUniqueWords(List<FileFundamental> list) {
         int fileNumber = 0;
         for (FileFundamental tmpFilefund : list) {
-            System.out.println("Process File :  " + ReadableFormat.getStringValue((fileNumber + 1)) + " | " +ReadableFormat.getStringValue(list.size()) + " | " + " file : " + list.get(fileNumber).getCompletePath());
+            System.out.println("Process File :  " + ReadableFormat.getStringValue((fileNumber + 1)) + " | " + ReadableFormat.getStringValue(list.size()) + " | " + " file : " + list.get(fileNumber).getCompletePath());
             List<String> readDataList = readFile(tmpFilefund);
             System.out.println("Total Line in file : " + ReadableFormat.getStringValue(readDataList.size()));
             Set bookWordSet = new HashSet();
@@ -55,6 +55,23 @@ public class WordDataOperation {
 
     public List<String> getWordListFromFile(FileFundamental fileFundamental) {
         return readFile(fileFundamental);
+    }
+
+    public void createNewWordDataFromExistingDatas(FileFundamental fileFundamental, int mod) {
+        totalWordSet = new HashSet(getWordListFromFile(fileFundamental));
+        List<String> wordList = new ArrayList<>(totalWordSet);
+
+        List<String> newWordList = new ArrayList<>();
+        for (int i = 0; i < wordList.size(); i++) {
+            if (i % mod == 0) {
+                newWordList.add(wordList.get(i));
+            }
+        }
+        System.out.println("totalWordSet.size() : "+newWordList.size());
+        System.out.println("words-size-" + ReadableFormat.getStringValue(newWordList.size()));
+        fileOperation.writeFile(newWordList, "words-size-" + ReadableFormat.getStringValue(newWordList.size()));
+
+
     }
 
     public List<String> getUniqueData() {
