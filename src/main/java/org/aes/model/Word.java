@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "words")
+@Table(name = "word")
 public class Word {
     @Id
     @Column

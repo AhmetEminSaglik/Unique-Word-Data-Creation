@@ -57,17 +57,32 @@ public class WordDataOperation {
         return readFile(fileFundamental);
     }
 
-    public void createNewWordDataFromExistingDatas(FileFundamental fileFundamental, int mod) {
-        totalWordSet = new HashSet(getWordListFromFile(fileFundamental));
+    public HashSet getTotalWordSet() {
+        return totalWordSet;
+    }
+
+    public void setTotalWordSet(List<String> list) {
+        totalWordSet = new HashSet(list);
+    }
+
+    public void createNewWordDataFromExistingDatas(FileFundamental fileFundamental, int mod, int maxIndex) {
+//        totalWordSet = new HashSet<>(getWordListFromFile(fileFundamental));
         List<String> wordList = new ArrayList<>(totalWordSet);
 
         List<String> newWordList = new ArrayList<>();
         for (int i = 0; i < wordList.size(); i++) {
-            if (i % mod == 0) {
-                newWordList.add(wordList.get(i));
+            if (i > 0 && i % mod == 0) {
+//                if (wordList.get(i).length() > 2) {
+                    newWordList.add(wordList.get(i));
+//                } else {
+//                    maxIndex++;
+//                }
+            }
+            if (i == maxIndex) {
+                break;
             }
         }
-        System.out.println("totalWordSet.size() : "+newWordList.size());
+        System.out.println("totalWordSet.size() : " + newWordList.size());
         System.out.println("words-size-" + ReadableFormat.getStringValue(newWordList.size()));
         fileOperation.writeFile(newWordList, "words-size-" + ReadableFormat.getStringValue(newWordList.size()));
 
