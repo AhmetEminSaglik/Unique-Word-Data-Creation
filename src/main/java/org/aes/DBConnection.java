@@ -1,12 +1,13 @@
 package org.aes;
 
-import org.aes.model.Word;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import javax.swing.text.TabableView;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DBConnection {
@@ -16,6 +17,7 @@ public class DBConnection {
     public DBConnection(Class<?> clazz) {
         this.clazz = clazz;
     }
+
 
     private Session createSession() {
         try {
@@ -31,21 +33,24 @@ public class DBConnection {
     }
 
     public void save(Object o) {
+        Session session = createSession();
         try {
-            Session session = createSession();
-            session.beginTransaction();
+
+            Transaction transaction=session.beginTransaction();
             session.persist(o);
-            session.getTransaction().commit();
+            transaction.commit();
 
         } finally {
+            session.close();
             factory.close();
         }
     }
 
     public void saveAll(List<?> objectList) {
         int i = 0;
+        Session session = createSession();
         try {
-            Session session = createSession();
+
             session.beginTransaction();
             session.setJdbcBatchSize(50);
             for (i = 0; i < objectList.size(); i++) {
@@ -61,6 +66,7 @@ public class DBConnection {
             System.out.println(i + "-) " + objectList.get(i));
             System.out.println("Error occured : " + e.getMessage());
         } finally {
+            session.close();
             factory.close();
         }
     }
@@ -70,7 +76,7 @@ public class DBConnection {
         try {
             Session session = createSession();
             Transaction transaction = session.beginTransaction();
-            String hql = "FROM Word W WHERE W.id = :id";
+            String hql = "FROM "+clazz.getSimpleName()+" W WHERE W.id = :id";
             Query query = session.createQuery(hql, clazz);
             query.setParameter("id", id);
 //        query.setParameter("propertyValue", "some value");
@@ -83,5 +89,23 @@ public class DBConnection {
             factory.close();
         }
         return object;
+    }
+
+    public List<? extends Object> getAll() {
+
+        List<?> list = new ArrayList<>();
+        Session session = createSession();
+
+        Transaction transaction = session.beginTransaction();
+        try {
+            list = session.createQuery("FROM " + clazz.getSimpleName(), clazz).getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            System.out.println("error occurred : " + e.getMessage());
+        } finally {
+            session.close();
+            factory.close();
+        }
+        return list;
     }
 }

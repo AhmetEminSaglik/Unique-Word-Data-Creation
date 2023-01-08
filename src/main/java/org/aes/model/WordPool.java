@@ -4,8 +4,9 @@ import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "word")
-public class Word {
+@Table(name = "word_pool")
+@NoArgsConstructor
+public class WordPool {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,18 +15,31 @@ public class Word {
     @Column(name = "word")
     private String word;
 
-    public Word(String word) {
+    public WordPool(String word) {
         this.word = word;
     }
 
-    public Word() {
-    }
-
-    @Override
+     @Override
     public String toString() {
-        return "Word{" +
+        return "WordPool{" +
                 "id=" + id +
                 ", word='" + word + '\'' +
                 '}';
     }
+
+    public int getId() {
+        return id;
+    }
+
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+//
+    public String getWord() {
+        return word;
+    }
+//
+//    public void setWord(String word) {
+//        this.word = word;
+//    }
 }

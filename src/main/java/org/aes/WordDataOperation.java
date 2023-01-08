@@ -65,20 +65,28 @@ public class WordDataOperation {
         totalWordSet = new HashSet(list);
     }
 
-    public void createNewWordDataFromExistingDatas(FileFundamental fileFundamental, int mod, int maxIndex) {
+    public void createNewWordDataFromExistingDatas(int mod, int maxIndex) {
 //        totalWordSet = new HashSet<>(getWordListFromFile(fileFundamental));
-        List<String> wordList = new ArrayList<>(totalWordSet);
 
+        //        System.out.println(fileFundamental.getPath());
+//        System.out.println(fileFundamental.getFileName());
+//        System.out.println(fileFundamental.getExtension());
+        List<String> wordList = new ArrayList<>(totalWordSet);
+//        System.out.println(wordList.size());
         List<String> newWordList = new ArrayList<>();
         for (int i = 0; i < wordList.size(); i++) {
             if (i > 0 && i % mod == 0) {
 //                if (wordList.get(i).length() > 2) {
-                    newWordList.add(wordList.get(i));
-//                } else {
-//                    maxIndex++;
+                    String val = (i + 1)+" ";
+                    newWordList.add(val);
+                    System.out.println(val);
 //                }
+            } else {
+                maxIndex++;
             }
-            if (i == maxIndex) {
+
+            if (i == maxIndex - 1) {
+                System.out.println("maxindex : " + maxIndex + " /  i : " + i);
                 break;
             }
         }
@@ -87,6 +95,18 @@ public class WordDataOperation {
         fileOperation.writeFile(newWordList, "words-size-" + ReadableFormat.getStringValue(newWordList.size()));
 
 
+    }
+
+    public void writeFileWordPoolId(List<String> list) {
+        fileOperation.writeFile(list, "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\word-pool-id-data\\", "word-pool-id");
+    }
+
+    public List<String> readFileWordPoolId() {
+        FileFundamental fileFundamental = new FileFundamental();
+        fileFundamental.setPath("C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\word-pool-id-data\\");
+        fileFundamental.setFileName("word-pool-id");
+        fileFundamental.setFileExtension(".txt");
+        return readFile(fileFundamental);
     }
 
     public List<String> getUniqueData() {

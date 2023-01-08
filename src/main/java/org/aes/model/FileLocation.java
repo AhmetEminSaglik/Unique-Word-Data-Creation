@@ -17,8 +17,11 @@ public class FileLocation {
 //        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqe-words\\"; //directory For String Data
 //        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\next-line-demo\\"; //directory For String Data
 //        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\uniqe-words-clean-7_037_373\\"; //directory For String Data
-        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\unique-english-words\\"; //directory For String Data
+//        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\unique-english-words\\"; //directory For String Data
 //        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\word-data-union\\"; //directory For String Data
+//        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\word-data\\"; //directory For String Data
+//        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\unique-english-words\\"; //directory For String Data
+        String directory = "C:\\Users\\ahmet\\OneDrive\\Desktop\\books-data\\word-data\\word-id-to-add-db\\"; //directory For String Data
 
         try {
             DirectoryStream<Path> directoryStream = Files.newDirectoryStream(FileSystems.getDefault().getPath(directory));
