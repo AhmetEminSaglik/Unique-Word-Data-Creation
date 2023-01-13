@@ -1,5 +1,7 @@
 package org.aes;
 
+import org.aes.model.Student;
+import org.aes.model.WordGroup;
 import org.aes.utillity.SpecialCharacter;
 import org.ahmeteminsaglik.ReadableFormat;
 import org.ahmeteminsaglik.fileoperation.entities.concretes.FileFundamental;
@@ -65,7 +67,7 @@ public class WordDataOperation {
         totalWordSet = new HashSet(list);
     }
 
-    public void createNewWordDataFromExistingDatas(int mod, int maxIndex) {
+    public List<WordGroup> createNewWordDataFromExistingDatas(int mod, int maxIndex) {
 //        totalWordSet = new HashSet<>(getWordListFromFile(fileFundamental));
 
         //        System.out.println(fileFundamental.getPath());
@@ -73,13 +75,13 @@ public class WordDataOperation {
 //        System.out.println(fileFundamental.getExtension());
         List<String> wordList = new ArrayList<>(totalWordSet);
 //        System.out.println(wordList.size());
-        List<String> newWordList = new ArrayList<>();
+        List<WordGroup> newWordList = new ArrayList<>();
         for (int i = 0; i < wordList.size(); i++) {
             if (i > 0 && i % mod == 0) {
 //                if (wordList.get(i).length() > 2) {
-                    String val = (i + 1)+" ";
-                    newWordList.add(val);
-                    System.out.println(val);
+                String val = wordList.get(i);//(i + 1)+" ";
+                newWordList.add(new WordGroup(wordList.get(i)));
+                System.out.println(val);
 //                }
             } else {
                 maxIndex++;
@@ -92,7 +94,8 @@ public class WordDataOperation {
         }
         System.out.println("totalWordSet.size() : " + newWordList.size());
         System.out.println("words-size-" + ReadableFormat.getStringValue(newWordList.size()));
-        fileOperation.writeFile(newWordList, "words-size-" + ReadableFormat.getStringValue(newWordList.size()));
+        return newWordList;
+//        fileOperation.writeFile(newWordList, "words-size-" + ReadableFormat.getStringValue(newWordList.size()));
 
 
     }

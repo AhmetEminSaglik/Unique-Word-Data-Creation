@@ -1,12 +1,18 @@
-package org.aes;
+package org.aes.db;
 
+import jakarta.persistence.Table;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import javax.swing.text.TabableView;
+import javax.enterprise.util.AnnotationLiteral;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +27,12 @@ public class DBConnection {
 
     private Session createSession() {
         try {
-            factory = new Configuration()
-                    .configure("hibernate.cfg.xml")
-                    .addAnnotatedClass(clazz)
-                    .buildSessionFactory();
+            Configuration configuration = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(clazz);
+            factory = configuration.buildSessionFactory();
         } catch (Exception e) {
             System.err.println("error occured : " + e.getMessage());
         }
-        return factory.getCurrentSession();
+        return factory.openSession();
 
     }
 
@@ -36,7 +40,7 @@ public class DBConnection {
         Session session = createSession();
         try {
 
-            Transaction transaction=session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.persist(o);
             transaction.commit();
 
@@ -76,7 +80,7 @@ public class DBConnection {
         try {
             Session session = createSession();
             Transaction transaction = session.beginTransaction();
-            String hql = "FROM "+clazz.getSimpleName()+" W WHERE W.id = :id";
+            String hql = "FROM " + clazz.getSimpleName() + " W WHERE W.id = :id";
             Query query = session.createQuery(hql, clazz);
             query.setParameter("id", id);
 //        query.setParameter("propertyValue", "some value");
@@ -97,9 +101,17 @@ public class DBConnection {
         Session session = createSession();
 
         Transaction transaction = session.beginTransaction();
+
+
         try {
-            list = session.createQuery("FROM " + clazz.getSimpleName(), clazz).getResultList();
+
+
+
+
+            Query query = session.createQuery("FROM " + clazz.getSimpleName(), clazz);
+            list = query.getResultList();
             transaction.commit();
+
         } catch (Exception e) {
             System.out.println("error occurred : " + e.getMessage());
         } finally {

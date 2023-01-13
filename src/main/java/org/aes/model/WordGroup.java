@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "word_1_500_000")
+@Table(name = "word_3_000_000")
 @NoArgsConstructor
 public class WordGroup {
     @Id
@@ -12,18 +12,20 @@ public class WordGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "pool_id")
-    private int poolId;
+    //    @Column(name = "pool_id")
+//    private int poolId;
+    @Column(name = "word")
+    private String word;
 
-    public WordGroup(int poolId) {
-        this.poolId = poolId;
+    public WordGroup(String word) {
+        this.word = word;
     }
 
     @Override
     public String toString() {
         return "WordGroup{" +
                 "id=" + id +
-                ", poolId=" + poolId +
+                ", word='" + word + '\'' +
                 '}';
     }
 }
