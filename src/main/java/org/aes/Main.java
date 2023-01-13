@@ -28,7 +28,32 @@ public class Main {
         }
     }
 
+    static <T> List<T> getAll(T t) {
+        DBService<T> dbService = new DBService<T>(t.getClass());
+        return dbService.getAll();
+    }
+
     public static void main(String[] args) {
+        List<WordGroup> wgList = getAll(new WordGroup());
+        List<WordPool> wpList = getAll(new WordPool());
+        System.out.println("word group List :" + wgList.size());
+        System.out.println("word pool List :" + wpList.size());
+        wgList.stream().forEach(
+                e -> {
+
+                    wpList.stream().forEach(
+                            f -> {
+                                if (e.getWord().equals(f.getWord())) {
+                                    System.out.println("wordGroup id : " + e.getId() + " / wordpool id : " + f.getId() + " " + e.getWord() + " is matched ");
+                                }
+                            }
+                    );
+
+
+                }
+        );
+
+
 //        DBService dbService = new DBService<WordPool>(WordPool.class);
 //        List<WordPool> list = null;
 //        list = dbService.getAll();
@@ -149,6 +174,8 @@ public class Main {
         System.out.println(stringList.size());*/
 
 
+
+/*
 // wordDataOperation.createNewWordDataFromExistingDatas(getRandom() + 5, 50);
 //        wordDataOperation.createNewWordDataFromExistingDatas(getRandom() + 5, 100);
 //        wordDataOperation.createNewWordDataFromExistingDatas(2, 250);
@@ -177,15 +204,12 @@ public class Main {
 //                wordDataOperation.createNewWordDataFromExistingDatas(2, 1_500_000);
 //        wordDataOperation.createNewWordDataFromExistingDatas(1, 2_000_000);
 
-
         wordDataOperation.setTotalWordSet(stringList);
         System.out.println(stringList.size());
         List<WordGroup> list =
                 wordDataOperation.createNewWordDataFromExistingDatas(1, 3_000_000);
-
-
         saveAll(list);
-        System.exit(0);
+        System.exit(0);*/
 
 
 //        System.exit(0);

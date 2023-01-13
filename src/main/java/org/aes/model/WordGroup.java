@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "word_3_000_000")
+@Table(name = "word_50")
 @NoArgsConstructor
 public class WordGroup {
     @Id
@@ -21,6 +21,22 @@ public class WordGroup {
         this.word = word;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
     @Override
     public String toString() {
         return "WordGroup{" +
@@ -28,4 +44,5 @@ public class WordGroup {
                 ", word='" + word + '\'' +
                 '}';
     }
+
 }
